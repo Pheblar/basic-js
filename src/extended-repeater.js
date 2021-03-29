@@ -1,16 +1,42 @@
 module.exports = function repeater(str, options) {
-  let newStr = '';
-    if (!options.repeatTimes) {
-      return str + options.addition;
+  if (options.addition !== undefined) {
+    options.addition = `${options.addition}`;
+  }
+  if (str !== undefined) {
+    str = `${str}`;
+  }
+  if (!options.separator) {
+    options.separator = '+';
+  } else {
+    options.separator;
+  }
+  if (!options.additionSeparator) {
+    options.additionSeparator = '|';
+  } else {
+    options.additionSeparator;
   } 
-    if (typeof options.addition === 'undefined') {
-      options.addition = '';
-  } 
-    if (typeof options.separator === 'undefined') {
-      options.separator = '+';
-  } else { newStr = (str + (options.addition + options.additionSeparator).repeat(options.additionRepeatTimes - 1)
-    + options.addition + options.separator).repeat(options.repeatTimes)}
-  return newStr.substring(0, newStr.length - (options.separator).length);
+  if (!options.repeatTimes) {
+    options.repeatTimes = 1;
+  } else {
+    options.repeatTimes;
+   } 
+  if (!options.additionRepeatTimes) { 
+    options.additionRepeatTimes = 1;
+  } else {
+    options.additionRepeatTimes
+  }
+  let newStr = [];
+  for (let i = 0; i < options.repeatTimes; i++) {
+    newStr.push(str);
+    if (options.addition !== '') {
+      for (let j = 0; j < options.additionRepeatTimes; j++) {
+        newStr.push(options.addition);
+        if (j !== options.additionRepeatTimes - 1) newStr.push(options.additionSeparator);
+      };
+    };
+    if (i !== options.repeatTimes - 1) newStr.push(options.separator);  
+  }
+  return newStr.join('');
 };
 
 
